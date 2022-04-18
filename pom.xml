@@ -8,6 +8,7 @@
         <module>pos-carts</module>
         <module>pos-discovery</module>
         <module>pos-gateway</module>
+        <module>pos-config</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -53,6 +54,10 @@
                 <version>3.0.0</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-hateoas</artifactId>
+            </dependency>
+            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
@@ -61,6 +66,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>2.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

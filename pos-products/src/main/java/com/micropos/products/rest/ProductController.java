@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("product")
 public class ProductController implements ProductsApi {
 
     private final ProductMapper productMapper;
@@ -28,8 +28,10 @@ public class ProductController implements ProductsApi {
 
     @Override
     public ResponseEntity<List<ProductDto>> listProducts(){
+        System.out.println("Get Request");
         List<ProductDto> products = new ArrayList<>(productMapper.toProductsDto(this.productService.products()));
         if (products.isEmpty()) {
+            System.out.println("Empty");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
