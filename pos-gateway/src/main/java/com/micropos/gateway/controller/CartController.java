@@ -9,6 +9,8 @@ import com.micropos.gateway.dto.ProductDto;
 import com.micropos.gateway.mapper.ItemMapper;
 import com.micropos.gateway.mapper.ProductMapper;
 import com.micropos.gateway.service.PosGatewayService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ public class CartController implements CartApi {
     private final ItemMapper itemMapper;
 
     private final PosGatewayService posGatewayService;
+
 
     public CartController(PosGatewayService posGatewayService, ItemMapper itemMapper) {
         this.itemMapper = itemMapper;
