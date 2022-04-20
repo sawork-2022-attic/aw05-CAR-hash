@@ -1,0 +1,167 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Gateway
+  license:
+    name: MIT
+paths:
+  /product/products:
+    get:
+      summary: List all products
+      operationId: listProducts
+      tags:
+        - products
+      responses:
+        '200':
+          description: A paged array of products
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /product/products/{productId}:
+    get:
+      summary: Info for a specific product
+      operationId: showProductById
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+  /cart/add:
+    post:
+      summary: Add item to cart
+      operationId: add item
+      requestBody:
+        description: add item to cart
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemFields'
+        required: true
+      responses:
+        '200':
+          description: Add succeed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Items"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cart/del:
+    post:
+      summary: Del the existence or decrease the quantity of certain item in the cart
+      operationId: del item
+      requestBody:
+        description: del item in cart
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemFields'
+        required: true
+      responses:
+        '200':
+          description: Del succeed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: double
+        image:
+          type: string
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Item:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    Items:
+      type: array
+      items:
+        $ref: "#/components/schemas/Item"
+    ItemFields:
+      title: item field
+      type: object
+      description: field for cart CRUD.
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - type: object
+          properties:
+            cart:
+              title: Current Cart
+              type: array
+              items:
+                $ref: "#/components/schemas/Item"
+      required:
+        - productId
+        - quantity
+        - cart
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

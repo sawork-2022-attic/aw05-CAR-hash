@@ -30,7 +30,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
   /cart/del:
-    get:
+    post:
       summary: Del the existence or decrease the quantity of certain item in the cart
       operationId: del item
       requestBody:

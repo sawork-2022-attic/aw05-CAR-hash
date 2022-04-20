@@ -1,4 +1,4 @@
-package com.micropos.products.model;
+package com.micropos.datatype.product;
 
 import java.io.Serializable;
 
@@ -7,6 +7,10 @@ public class Product implements Serializable {
     private String name;
     private double price;
     private String image;
+
+    public Product(){
+
+    }
 
     public Product(String id, String name, double price, String image) {
         this.id = id;

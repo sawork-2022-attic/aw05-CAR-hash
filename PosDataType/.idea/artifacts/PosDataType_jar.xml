@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PosDataType:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PosDataType_jar</output-path>
+    <root id="archive" name="PosDataType.jar">
+      <element id="module-output" name="PosDataType" />
+    </root>
+  </artifact>
+</component>

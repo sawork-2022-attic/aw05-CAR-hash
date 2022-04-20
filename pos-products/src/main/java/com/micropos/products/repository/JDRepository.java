@@ -1,10 +1,12 @@
 package com.micropos.products.repository;
 
-import com.micropos.products.model.Product;
+import com.micropos.datatype.product.Product;
+import com.netflix.discovery.converters.Auto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -16,11 +18,20 @@ import java.util.List;
 public class JDRepository implements ProductRepository {
     private List<Product> products = null;
 
+    @Autowired
+    private CacheHelper cacheHelper;
+
     @Override
     public List<Product> allProducts() {
+        if(cacheHelper.getProductCache().containsKey(0)){
+            return (List<Product>) cacheHelper.getProductCache().get(0);
+        }
+
         try {
-            if (products == null)
+            if (products == null){
                 products = parseJD("Java");
+                cacheHelper.getProductCache().put(0,products);
+            }
         } catch (IOException e) {
             products = new ArrayList<>();
         }

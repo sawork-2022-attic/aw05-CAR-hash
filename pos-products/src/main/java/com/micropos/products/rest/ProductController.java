@@ -1,5 +1,6 @@
 package com.micropos.products.rest;
 
+import com.micropos.datatype.product.Product;
 import com.micropos.products.api.ProductsApi;
 import com.micropos.products.dto.ProductDto;
 import com.micropos.products.mapper.ProductMapper;
@@ -28,12 +29,21 @@ public class ProductController implements ProductsApi {
 
     @Override
     public ResponseEntity<List<ProductDto>> listProducts(){
-        System.out.println("Get Request");
         List<ProductDto> products = new ArrayList<>(productMapper.toProductsDto(this.productService.products()));
         if (products.isEmpty()) {
             System.out.println("Empty");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<ProductDto> showProductById(String productId) {
+        ProductDto product=productMapper.toProductDto(productService.getProduct(productId));
+        if (product==null) {
+            System.out.println("No Such Product");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 }

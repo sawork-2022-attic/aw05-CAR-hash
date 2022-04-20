@@ -1,7 +1,8 @@
-package com.micropos.cart.mapper;
+package com.micropos.gateway.mapper;
+
 
 import com.micropos.datatype.cart.Item;
-import com.micropos.cart.dto.ItemDto;
+import com.micropos.gateway.dto.ItemDto;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;

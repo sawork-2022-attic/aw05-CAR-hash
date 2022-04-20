@@ -1,7 +1,4 @@
-package com.micropos.cart.model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+package com.micropos.datatype.cart;
 import java.io.Serializable;
 
 public class Item implements Serializable {
